@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 function BlockThemed(props) {
   return (
     <div className="block block-themed block-rounded">
@@ -8,7 +8,7 @@ function BlockThemed(props) {
           <button
             type="button"
             className="btn-block-option"
-            onClick={() => props.onClick()}
+            onClick={() => props.close()}
           >
             <i className={`${props.icon}`}></i>
           </button>

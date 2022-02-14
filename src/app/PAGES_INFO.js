@@ -131,6 +131,18 @@ export const PAGES_INFO = ([
             parent_id: '',
             name: '',
         }
+    },
+    {
+        _id: 12,
+        route: "/controller/:id",
+        title: "Controller verwalten",
+        icon: '',
+        name: "Controller",
+        parents: [1, 10],
+        sideBar: {
+            parent_id: '',
+            name: '',
+        }
     }
 ])
 export default PAGES_INFO

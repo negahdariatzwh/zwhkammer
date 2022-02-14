@@ -7,9 +7,10 @@ import Form from "muicss/lib/react/form";
 import Textarea from "muicss/lib/react/textarea";
 import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
-import { PageApiContenxt } from "../../context/PageApiContext";
+import MainContext from "../../context/MainContext";
 function UpdateController(props) {
-  const { editForm, seteditForm, refreshList } = useContext(PageApiContenxt);
+  const { editForm, seteditForm, refreshList, setRefreshList } =
+    useContext(MainContext);
   const [formState, setFormState] = useState([]);
 
   useEffect(() => {
@@ -47,16 +48,11 @@ function UpdateController(props) {
     formPayload.append("name", formState.name);
     formPayload.append("description", formState.description);
     //console.log(formState);
-    DynamicService.update(
-      "kammer",
-      "api_controller",
-      props.editForm,
-      formPayload
-    )
+    DynamicService.update("kammer", "api_controller", editForm, formPayload)
       .then((response) => {
         seteditForm();
         toast.success("updated");
-        refreshList(Math.random());
+        setRefreshList(Math.random());
       })
       .catch((error) => {
         toast.error(error);
@@ -71,8 +67,8 @@ function UpdateController(props) {
             <BlockThemed
               color="bg-gd-default"
               icon="far fa-2x fa-window-close  closeBtn"
-              onClick={() => seteditForm(false)}
               title="Controller Aktualisieren"
+              close={() => seteditForm(false)}
             >
               <Form onChange={handleFormChange} onSubmit={handleSubmit}>
                 <div className="row mb-4">

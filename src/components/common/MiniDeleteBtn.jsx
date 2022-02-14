@@ -1,14 +1,15 @@
-import { React, useContext } from "react";
+import { React } from "react";
 import { toast } from "react-toastify";
 import DynamicService from "../../service/DynamicService";
-import { PageApiContenxt } from "../../context/PageApiContext";
-function MiniDeleteBtn({ apiName, apiController, id, setrefresh }) {
-  const { setrefreshTrash } = useContext(PageApiContenxt);
+//import { PageApiContenxt } from "../../context/PageApiContext_old";
+function MiniDeleteBtn({ apiName, apiController, id, refresh }) {
+  //const { setrefreshTrash } = useContext(PageApiContenxt);
   const handleDelete = () => {
     DynamicService.delete(apiName, apiController, id)
       .then((response) => {
         toast.info("erfolgreich entfernt");
-        setrefreshTrash(Math.random());
+        //setrefreshTrash(Math.random());
+        refresh();
       })
       .catch((error) => {
         toast.error(error);

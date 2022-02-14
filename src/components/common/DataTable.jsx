@@ -1,9 +1,8 @@
-import { React, useEffect, useState, Fragment, useContext } from "react";
+import { React, useEffect, useState, Fragment } from "react";
 import Service from "../../service/DynamicService";
 import { toast } from "react-toastify";
 import TableHeader from "./TableHeader";
 import Pagination from "../common/Pagination";
-import { PageApiContenxt } from "../../context/PageApiContext";
 function DataTable({
   apiName,
   apiController,
@@ -20,7 +19,6 @@ function DataTable({
   const [sortDirection, setsortDirection] = useState(1);
   const [searchHandle, setsearchHandle] = useState();
   const [error, seterror] = useState();
-  const { refreshTrash } = useContext(PageApiContenxt);
 
   const sortHandle = (item) => {
     setorder(item.name);
@@ -28,7 +26,7 @@ function DataTable({
   };
   useEffect(() => {
     refreshMyData();
-  }, [page, order, sortDirection, searchHandle, refreshTrash]);
+  }, [page, order, sortDirection, searchHandle, refresh]);
 
   const refreshMyData = () => {
     if (apiId) {

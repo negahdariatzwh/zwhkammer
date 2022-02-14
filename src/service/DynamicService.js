@@ -144,6 +144,17 @@ const DynamicService = {
         } catch (er) {
             return false
         }
+    },
+
+    addId: async (apiName, apiController, id, payload) => {
+        try {
+            let { apiAddress } = findApiByName(apiName);
+            let apiToCall = apiAddress + apiController + '/add/' + id
+            let data = await ApiService.post(apiToCall, payload).then((response) => response.data);
+            return data
+        } catch (er) {
+            return false
+        }
     }
 
 

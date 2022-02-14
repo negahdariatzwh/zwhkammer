@@ -1,36 +1,50 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import PageInfo from "../components/common/PageInfo";
 import AddNewAPI from "../components/apis/AddNewAPI";
 import ListApis from "../components/apis/ListApis";
 import UpdateAPI from "../components/apis/UpdateAPI";
 import ListApisTrash from "../components/apis/ListApisTrash";
+import MainContext from "../context/MainContext";
+
 function Apis() {
+  const {
+    addForm,
+    showTrash,
+    setaddForm,
+    setshowTrash,
+    setshowList,
+    editForm,
+    seteditForm,
+    showList,
+  } = useContext(MainContext);
   const [pageState, setPageState] = useState();
-  const [editForm, setEditForm] = useState();
+  /*const [editForm, setEditForm] = useState();
   const [addForm, setAddForm] = useState();
   const [showTrash, setshowTrash] = useState();
-  const [showList, setshowList] = useState(true);
-
+  const [showList, setshowList] = useState(true);*/
+  const switchListTrashFunction = () => {
+    if (showList) {
+      setshowList(false);
+      setshowTrash(true);
+    } else {
+      setshowList(true);
+      setshowTrash(false);
+    }
+  };
   return (
     <div>
       <PageInfo
-        title="Api List"
-        addForm={addForm}
-        showTrash={showTrash}
-        setAddForm={setAddForm}
-        btnText="neue Api"
-        setshowTrash={() => {
-          setshowTrash(!showTrash);
-          setshowList(showTrash);
-        }}
+        addBtnText="neue API hinzufügen"
+        addBtnFunction={() => setaddForm(true)}
+        switchListTrashFunction={() => switchListTrashFunction()}
       />
       <div className="row">
         {addForm ? (
           <div className="col-md-12 fadeIn">
             <AddNewAPI
-              setAddForm={setAddForm}
+              setAddForm={setaddForm}
               setPageState={setPageState}
-              closeForm={() => setAddForm(false)}
+              closeForm={() => setaddForm(false)}
               pageState={pageState}
             />
           </div>
@@ -42,7 +56,7 @@ function Apis() {
           <div className="col-md-12 fadeIn">
             <UpdateAPI
               editForm={editForm}
-              closeForm={() => setEditForm(false)}
+              closeForm={seteditForm}
               setPageState={setPageState}
               pageState={pageState}
             />
@@ -53,7 +67,7 @@ function Apis() {
       </div>
       {showTrash ? (
         <div className="row items-push">
-          <ListApisTrash setEditForm={setEditForm} pageState={pageState} />
+          <ListApisTrash setEditForm={seteditForm} pageState={pageState} />
         </div>
       ) : (
         ""
@@ -61,7 +75,7 @@ function Apis() {
 
       {showList ? (
         <div className="row items-push">
-          <ListApis setEditForm={setEditForm} pageState={pageState} />
+          <ListApis setEditForm={seteditForm} pageState={pageState} />
         </div>
       ) : (
         ""

@@ -6,9 +6,10 @@ import Textarea from "muicss/lib/react/textarea";
 import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
 import BlockThemed from "../common/BlockThemed";
-import { PageApiContenxt } from "../../context/PageApiContext";
+import MainContext from "../../context/MainContext";
+
 function AddNewController(props) {
-  const { addForm, setaddForm } = useContext(PageApiContenxt);
+  const { setRefreshList, setaddForm } = useContext(MainContext);
   const [formState, setFormState] = useState({
     api_name: "",
     icon: "",
@@ -39,7 +40,7 @@ function AddNewController(props) {
     DynamicService.add("kammer", "api", formPayload)
       .then((response) => {
         toast.success("added");
-        props.setRefreshList(Math.random());
+        setRefreshList(Math.random());
       })
       .catch((error) => {
         toast.error(error);
@@ -50,94 +51,90 @@ function AddNewController(props) {
 
   return (
     <Fragment>
-      {addForm ? (
-        <div className="row">
-          <div className="col-md-12 fadeIn">
-            <BlockThemed
-              title={props.formName}
-              color="bg-gd-emerald"
-              icon="far fa-2x fa-window-close  closeBtn"
-              onClick={setaddForm(false)}
+      <div className="row">
+        <div className="col-md-12 fadeIn">
+          <BlockThemed
+            title="Neue Controller hinzufügen"
+            color="bg-gd-emerald"
+            icon="far fa-2x fa-window-close  closeBtn"
+            close={() => setaddForm(false)}
+          >
+            <form
+              id="create-api-form"
+              onChange={handleFormChange}
+              onSubmit={handleAdd}
             >
-              <form
-                id="create-api-form"
-                onChange={handleFormChange}
-                onSubmit={handleAdd}
-              >
-                <div className="row mb-4">
-                  <div className="col-md-6">
-                    <Input
-                      label="API Name: myExampleApi"
-                      floatingLabel={true}
-                      required={true}
-                      type="text"
-                      name="api_name"
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <Input
-                      label="icon : fas fa-address-book"
-                      floatingLabel={true}
-                      type="text"
-                      name="icon"
-                    />
-                  </div>
+              <div className="row mb-4">
+                <div className="col-md-6">
+                  <Input
+                    label="API Name: myExampleApi"
+                    floatingLabel={true}
+                    required={true}
+                    type="text"
+                    name="api_name"
+                  />
                 </div>
-                <div className="row mb-4">
-                  <div className="col-md-6">
-                    <Input
-                      label="farbe : bg-danger"
-                      floatingLabel={true}
-                      type="text"
-                      name="color"
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <Input
-                      label="API address: muster-subdomain.muster-domain.de"
-                      floatingLabel={true}
-                      type="text"
-                      name="address"
-                    />
-                  </div>
+                <div className="col-md-6">
+                  <Input
+                    label="icon : fas fa-address-book"
+                    floatingLabel={true}
+                    type="text"
+                    name="icon"
+                  />
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-md-6">
+                  <Input
+                    label="farbe : bg-danger"
+                    floatingLabel={true}
+                    type="text"
+                    name="color"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label="API address: muster-subdomain.muster-domain.de"
+                    floatingLabel={true}
+                    type="text"
+                    name="address"
+                  />
+                </div>
+              </div>
+
+              <div className="row mb-4">
+                <div className="col-md-12">
+                  <Textarea
+                    label="API address: muster-subdomain.muster-domain.de"
+                    floatingLabel={true}
+                    name="description"
+                  />
+                </div>
+              </div>
+
+              <div className="row mb-4">
+                <div className="col-md-2">
+                  <Button
+                    text="hinzufügen"
+                    icon="fa fa-plus"
+                    color="success"
+                    type="submit"
+                  />
                 </div>
 
-                <div className="row mb-4">
-                  <div className="col-md-12">
-                    <Textarea
-                      label="API address: muster-subdomain.muster-domain.de"
-                      floatingLabel={true}
-                      name="description"
-                    />
-                  </div>
+                <div className="col-md-2">
+                  <Button
+                    text="reset"
+                    icon="fas fa-undo"
+                    color="warning"
+                    onClick={() => handleResetForm()}
+                  />
                 </div>
-
-                <div className="row mb-4">
-                  <div className="col-md-2">
-                    <Button
-                      text="hinzufügen"
-                      icon="fa fa-plus"
-                      color="success"
-                      type="submit"
-                    />
-                  </div>
-
-                  <div className="col-md-2">
-                    <Button
-                      text="reset"
-                      icon="fas fa-undo"
-                      color="warning"
-                      onClick={() => handleResetForm()}
-                    />
-                  </div>
-                </div>
-              </form>
-            </BlockThemed>
-          </div>
+              </div>
+            </form>
+          </BlockThemed>
         </div>
-      ) : (
-        ""
-      )}
+      </div>
     </Fragment>
   );
 }

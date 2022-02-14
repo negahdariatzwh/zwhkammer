@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import Button from "../common/Button";
 //import ReactDOM from "react-dom";
 import Input from "muicss/lib/react/input";
@@ -6,7 +6,9 @@ import Textarea from "muicss/lib/react/textarea";
 import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
 import BlockThemed from "../common/BlockThemed";
+import MainContext from "../../context/MainContext";
 function AddNewAPI(props) {
+  const { setaddForm } = useContext(MainContext);
   const [formState, setFormState] = useState({
     api_name: "",
     icon: "",
@@ -38,7 +40,7 @@ function AddNewAPI(props) {
       .then((response) => {
         toast.success("added");
         props.setPageState(true);
-        props.closeForm();
+        setaddForm(false);
       })
       .catch((error) => {
         toast.error(error);
@@ -52,7 +54,7 @@ function AddNewAPI(props) {
       title={props.formName}
       color="bg-gd-emerald"
       icon="far fa-2x fa-window-close  closeBtn"
-      onClick={props.setAddForm}
+      close={() => setaddForm(false)}
     >
       <form
         id="create-api-form"

@@ -12,7 +12,8 @@ import User from "../page/User";
 import Users from "../page/Users";
 import NewLayout from "../layout/NewLayout";
 import Apis from "../page/Apis";
-import ApiProvider from "../context/PageApiContext";
+import Api from "../page/Api";
+import Controller from "../page/Controller";
 function MainRouter() {
   const { pages } = useContext(Main_Context);
   const components = {
@@ -25,8 +26,9 @@ function MainRouter() {
     Project: Project,
     User: User,
     Users: Users,
-    Api: ApiProvider,
+    Api: Api,
     Apis: Apis,
+    Controller: Controller,
   };
   return (
     <NewLayout>

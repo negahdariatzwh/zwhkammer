@@ -5,10 +5,10 @@ import TdLink from "../common/TdLink";
 import MiniDeleteBtn from "../common/MiniDeleteBtn";
 import MainContext from "../../context/MainContext";
 import MiniEditBtn from "../common/MiniEditBtn";
-import { PageApiContenxt } from "../../context/PageApiContext";
-function ListContollers() {
-  const { authError } = useContext(MainContext);
-  const { paramId, refreshList, seteditForm } = useContext(PageApiContenxt);
+
+function ListContollers(props) {
+  const { authError, seteditForm, setRefreshList, refreshList } =
+    useContext(MainContext);
   const headers = [
     {
       _id: 1,
@@ -48,13 +48,13 @@ function ListContollers() {
 
   return (
     <Fragment>
-      {paramId ? (
+      {props.id ? (
         <DataTable
           headers={headers}
           apiName="kammer"
           apiController="api"
           apiMethod="listcontollers"
-          apiId={paramId}
+          apiId={props.id}
           objects={objects}
           setObjects={setObjects}
           refresh={refreshList}
@@ -65,23 +65,24 @@ function ListContollers() {
                   <td>
                     <Activate
                       apiName="kammer"
-                      apiController="api_controller"
+                      apiController="ctrl"
                       id={item._id}
                       status={item.isActive}
                     />
                   </td>
                   <TdLink
                     inner={`${item.name}`}
-                    goto={`/controller/id/${item._id}`}
-                    targetPageId=""
+                    goto={`/controller/${item._id}`}
+                    targetPageId="12"
                   />
                   <td>{item.description}</td>
                   <td>
                     <span className="">
                       <MiniDeleteBtn
                         apiName="kammer"
-                        apiController="api_controller"
+                        apiController="ctrl"
                         id={item._id}
+                        refresh={() => setRefreshList(Math.random())}
                       />
                     </span>
                     <span className="">

@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import MainContext from "./MainContext";
 import PAGES_INFO from "../app/PAGES_INFO";
+
 function Provider({ children }) {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -9,9 +10,34 @@ function Provider({ children }) {
   const [currentPage, setcurrentPage] = useState([]);
   const [refresh, setRefresh] = useState();
   const [authError, setAuthError] = useState();
+  const [editForm, seteditForm] = useState();
+  const [addForm, setaddForm] = useState();
+  const [showTrash, setshowTrash] = useState();
+  const [showList, setshowList] = useState(true);
+  const [parent, setparent] = useState([]);
+  const [refreshList, setRefreshList] = useState();
+  const [refreshTrash, setrefreshTrash] = useState();
+  const [paramId, setparamId] = useState();
+
   return (
     <MainContext.Provider
       value={{
+        paramId,
+        setparamId,
+        editForm,
+        seteditForm,
+        addForm,
+        setaddForm,
+        showTrash,
+        setshowTrash,
+        showList,
+        setshowList,
+        parent,
+        setparent,
+        refreshList,
+        setRefreshList,
+        refreshTrash,
+        setrefreshTrash,
         name,
         setName,
         email,

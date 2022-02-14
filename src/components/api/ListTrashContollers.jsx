@@ -5,10 +5,9 @@ import TdLink from "../common/TdLink";
 import MiniremoveBtn from "../common/MiniRemoveBtn";
 import MainContext from "../../context/MainContext";
 import MiniRestoreBtn from "../common/MiniRestoreBtn";
-import { PageApiContenxt } from "../../context/PageApiContext";
-function ListTrashContollers({ id, refresh }) {
-  const { authError } = useContext(MainContext);
-  const { refreshTrash, showTrash } = useContext(PageApiContenxt);
+
+function ListTrashContollers({ id }) {
+  const { authError, refreshTrash, showTrash } = useContext(MainContext);
 
   const headers = [
     {
@@ -57,6 +56,7 @@ function ListTrashContollers({ id, refresh }) {
           apiId={id}
           objects={objects}
           setObjects={setObjects}
+          refresh={refreshTrash}
         >
           {objects.found ? (
             objects.found.map((item) => (

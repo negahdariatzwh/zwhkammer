@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import Button from "../common/Button";
 //import ReactDOM from "react-dom";
 import BlockThemed from "../common/BlockThemed";
@@ -7,7 +7,10 @@ import Form from "muicss/lib/react/form";
 import Textarea from "muicss/lib/react/textarea";
 import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
+import MainContext from "../../context/MainContext";
+
 function UpdateAPI(props) {
+  const { seteditForm } = useContext(MainContext);
   const [formState, setFormState] = useState([]);
   let id = props.editForm;
   useEffect(() => {
@@ -112,7 +115,7 @@ function UpdateAPI(props) {
       color="bg-gd-default"
       icon="far fa-2x fa-window-close  closeBtn"
       title="Aktualisieren"
-      onClick={() => props.closeForm()}
+      close={() => seteditForm(false)}
     >
       <Form onChange={handleFormChange} onSubmit={handleSubmit}>
         <div className="row mb-4">
