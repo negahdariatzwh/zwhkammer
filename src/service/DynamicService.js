@@ -9,24 +9,24 @@ function findApiByName(xname) {
     })
 }
 const DynamicService = {
-    list: async (apiName, apiController, page = 1, order_item = ["_id"], sortDirection = 1) => {
+    list: async (apiName, apiController, page = 1, order_item = ["_id"], sortDirection = 1, filter) => {
         let { apiAddress } = findApiByName(apiName);
         let query = `?page=${page}&orderby[${order_item}]=${sortDirection}`;
         try {
             let apiToCall = apiAddress + apiController + '/list' + query
-            let data = await ApiService.get(apiToCall).then((response) => response.data);
+            let data = await ApiService.post(apiToCall, filter).then((response) => response.data);
             return data;
         } catch (ex) {
 
             return false
         }
     },
-    listId: async (apiName, apiController, apiMethod, Id, page = 1, order_item = ["_id"], sortDirection = 1) => {
+    listId: async (apiName, apiController, apiMethod, Id, page = 1, order_item = ["_id"], sortDirection = 1, filter) => {
         let { apiAddress } = findApiByName(apiName);
         let query = `?page=${page}&orderby[${order_item}]=${sortDirection}`;
         try {
             let apiToCall = apiAddress + apiController + '/' + apiMethod + '/' + Id + query
-            let data = await ApiService.get(apiToCall).then((response) => response.data);
+            let data = await ApiService.post(apiToCall, filter).then((response) => response.data);
             return data;
         } catch (ex) {
             //if (ex.response.status == "403") {

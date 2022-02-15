@@ -13,6 +13,7 @@ function DataTable({
   objects,
   setObjects,
   refresh,
+  filter,
 }) {
   const [page, setPage] = useState(1);
   const [order, setorder] = useState();
@@ -26,7 +27,7 @@ function DataTable({
   };
   useEffect(() => {
     refreshMyData();
-  }, [page, order, sortDirection, searchHandle, refresh]);
+  }, [page, order, sortDirection, searchHandle, refresh, filter]);
 
   const refreshMyData = () => {
     if (apiId) {
@@ -36,14 +37,7 @@ function DataTable({
     }
   };
   const getData = () => {
-    Service.list(
-      apiName,
-      apiController,
-      page,
-      order,
-      sortDirection,
-      searchHandle
-    )
+    Service.list(apiName, apiController, page, order, sortDirection, filter)
       .then((response) => {
         setObjects(response.success);
       })
@@ -62,7 +56,7 @@ function DataTable({
       page,
       order,
       sortDirection,
-      searchHandle
+      filter
     )
       .then((response) => {
         setObjects(response.success);
