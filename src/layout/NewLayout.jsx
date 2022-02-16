@@ -7,7 +7,7 @@ function NewLayout({ children }) {
     <Fragment>
       <div
         id="page-container"
-        className="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed side-trans-enabled"
+        className="sidebar-o enable-page-overlay side-scroll page-header-modern  side-trans-enabled "
       >
         <div id="page-overlay"></div>
         <aside id="side-overlay" data-simplebar="init"></aside>

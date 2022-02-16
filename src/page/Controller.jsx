@@ -13,6 +13,9 @@ function Controller() {
   return (
     <div>
       <PageInfo addBtnText="neue Method zum Controller hinzufügen" />
+      <h5>Controller: {}</h5>
+      <span></span>
+      <hr />
       {addForm ? <AddNewMethod id={params.id} /> : ""}
       {editForm ? <EditMethods id={editForm} /> : ""}
       {showList ? <ListMethods id={params.id} /> : ""}

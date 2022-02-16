@@ -7,16 +7,23 @@ import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
 import BlockThemed from "../common/BlockThemed";
 import MainContext from "../../context/MainContext";
+import { Checkbox } from "muicss/react";
 
 function AddNewController(props) {
   const { setRefreshList, setaddForm } = useContext(MainContext);
   const [formState, setFormState] = useState({
-    api_name: "",
-    icon: "",
-    color: "",
-    address: "",
+    api_id: "",
+    ctrl_name: "",
     description: "",
   });
+
+  const [generic, setGeneric] = useState();
+
+  const handleCheckbox = (e) => {
+    if (e) {
+      setGeneric(1);
+    }
+  };
 
   const handleFormChange = (e) => {
     setFormState({
@@ -26,18 +33,17 @@ function AddNewController(props) {
     console.log(e.target.name);
   };
   const handleResetForm = () => {
-    document.getElementById("create-api-form").reset();
+    document.getElementById("create-ctrl-form").reset();
   };
   const handleAdd = async (e) => {
     e.preventDefault();
+    console.log(generic);
     const formPayload = new FormData();
-    formPayload.append("name", formState.api_name);
-    formPayload.append("icon", formState.icon);
-    formPayload.append("color", formState.color);
-    formPayload.append("address", formState.address);
+    formPayload.append("name", formState.ctrl_name);
+    formPayload.append("generic", generic);
     formPayload.append("description", formState.description);
     console.log(formState);
-    DynamicService.add("kammer", "api", formPayload)
+    DynamicService.addId("kammer", "ctrl", props.api_id, formPayload)
       .then((response) => {
         toast.success("added");
         setRefreshList(Math.random());
@@ -60,44 +66,25 @@ function AddNewController(props) {
             close={() => setaddForm(false)}
           >
             <form
-              id="create-api-form"
+              id="create-ctrl-form"
               onChange={handleFormChange}
               onSubmit={handleAdd}
             >
               <div className="row mb-4">
-                <div className="col-md-6">
+                <div className="col-md-10">
                   <Input
-                    label="API Name: myExampleApi"
+                    label="Controller Name"
                     floatingLabel={true}
                     required={true}
                     type="text"
-                    name="api_name"
+                    name="ctrl_name"
                   />
                 </div>
-                <div className="col-md-6">
-                  <Input
-                    label="icon : fas fa-address-book"
-                    floatingLabel={true}
-                    type="text"
-                    name="icon"
-                  />
-                </div>
-              </div>
-              <div className="row mb-4">
-                <div className="col-md-6">
-                  <Input
-                    label="farbe : bg-danger"
-                    floatingLabel={true}
-                    type="text"
-                    name="color"
-                  />
-                </div>
-                <div className="col-md-6">
-                  <Input
-                    label="API address: muster-subdomain.muster-domain.de"
-                    floatingLabel={true}
-                    type="text"
-                    name="address"
+                <div className="col-md-2">
+                  <Checkbox
+                    type="checkbox"
+                    label="is Generic Controller"
+                    onChange={(e) => handleCheckbox(e.target.checked)}
                   />
                 </div>
               </div>
@@ -105,7 +92,7 @@ function AddNewController(props) {
               <div className="row mb-4">
                 <div className="col-md-12">
                   <Textarea
-                    label="API address: muster-subdomain.muster-domain.de"
+                    label="Beschreibung"
                     floatingLabel={true}
                     name="description"
                   />

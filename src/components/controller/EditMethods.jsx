@@ -10,8 +10,7 @@ import MainContext from "../../context/MainContext";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 function EditMethods(props) {
-  const { editForm, seteditForm, refreshList, setRefreshList } =
-    useContext(MainContext);
+  const { editForm, seteditForm, setRefreshList } = useContext(MainContext);
   const [ckeditor, setckeditor] = useState();
   const [methodResult, setmethodResult] = useState();
 

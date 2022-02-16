@@ -5,8 +5,9 @@ import TdLink from "../common/TdLink";
 import MiniDeleteBtn from "../common/MiniDeleteBtn";
 import MainContext from "../../context/MainContext";
 import MiniEditBtn from "../common/MiniEditBtn";
+import IsActive from "../common/IsActive";
 
-function ListContollers(props) {
+function ListContollers({ api_id }) {
   const { authError, seteditForm, setRefreshList, refreshList } =
     useContext(MainContext);
   const headers = [
@@ -18,9 +19,17 @@ function ListContollers(props) {
       search: false,
       component: "Activate",
     },
-
     {
       _id: 2,
+      show: "Generic",
+      name: "generic",
+      sort: true,
+      search: true,
+      component: "Tdlink",
+    },
+
+    {
+      _id: 3,
       show: "Name",
       name: "name",
       sort: true,
@@ -28,7 +37,7 @@ function ListContollers(props) {
       component: "Tdlink",
     },
     {
-      _id: 3,
+      _id: 4,
       show: "beschreibung",
       name: "description",
       sort: false,
@@ -36,7 +45,7 @@ function ListContollers(props) {
       component: "",
     },
     {
-      _id: 4,
+      _id: 5,
       show: "",
       name: "",
       sort: false,
@@ -48,16 +57,18 @@ function ListContollers(props) {
 
   return (
     <Fragment>
-      {props.id ? (
+      {api_id ? (
         <DataTable
           headers={headers}
           apiName="kammer"
           apiController="api"
           apiMethod="listcontollers"
-          apiId={props.id}
+          apiId={api_id}
           objects={objects}
           setObjects={setObjects}
           refresh={refreshList}
+          headerColor="bg-gd-emerald"
+          title="List controllers"
         >
           {!authError && objects.found
             ? objects.found.map((item) => (
@@ -69,6 +80,9 @@ function ListContollers(props) {
                       id={item._id}
                       status={item.isActive}
                     />
+                  </td>
+                  <td>
+                    <IsActive active={item.generic} />
                   </td>
                   <TdLink
                     inner={`${item.name}`}

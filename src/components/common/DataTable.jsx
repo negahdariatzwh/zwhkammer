@@ -14,6 +14,8 @@ function DataTable({
   setObjects,
   refresh,
   filter,
+  headerColor,
+  title,
 }) {
   const [page, setPage] = useState(1);
   const [order, setorder] = useState();
@@ -70,32 +72,35 @@ function DataTable({
     <Fragment>
       {!error ? (
         <div className="block block-rounded">
-          <div className="block-header block-header-light">
-            <Pagination
-              setPage={setPage}
-              currentPage={page}
-              count={!objects.count ? 0 : objects.count}
-            />
+          <div
+            className={`block-header ${
+              headerColor ? headerColor : "bg-gd-primary"
+            }`}
+          >
+            {title}
           </div>
 
-          <div className="table-responsive">
-            <table className="table table-striped table-vcenter table-sm table-hover">
-              <thead>
-                <TableHeader
-                  headers={headers}
-                  sortHandle={sortHandle}
-                  searchHandle={setsearchHandle}
-                />
-              </thead>
-              <tbody>{children}</tbody>
-              <tfoot></tfoot>
-            </table>
-            <Pagination
-              setPage={setPage}
-              currentPage={page}
-              count={!objects.count ? 0 : objects.count}
-            />
+          <div className="block-content">
+            <div className="table-responsive">
+              <table className="table table-striped table-vcenter table-sm table-hover">
+                <thead>
+                  <TableHeader
+                    headers={headers}
+                    sortHandle={sortHandle}
+                    searchHandle={setsearchHandle}
+                  />
+                </thead>
+                <tbody>{children}</tbody>
+                <tfoot></tfoot>
+              </table>
+              <Pagination
+                setPage={setPage}
+                currentPage={page}
+                count={!objects.count ? 0 : objects.count}
+              />
+            </div>
           </div>
+
           <div className="card"></div>
         </div>
       ) : (
