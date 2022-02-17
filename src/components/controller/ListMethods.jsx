@@ -75,6 +75,8 @@ function ListMethods(props) {
           objects={objects}
           setObjects={setObjects}
           refresh={refreshList}
+          title="Method List"
+          headerColor="bg-gd-emerald"
         >
           {!authError && objects.found
             ? objects.found.map((item) => (
@@ -113,7 +115,7 @@ function ListMethods(props) {
             : ""}
         </DataTable>
       ) : (
-        ""
+        <tr></tr>
       )}
     </Fragment>
   );

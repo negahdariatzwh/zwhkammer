@@ -16,6 +16,7 @@ function DataTable({
   filter,
   headerColor,
   title,
+  titleColor,
 }) {
   const [page, setPage] = useState(1);
   const [order, setorder] = useState();
@@ -77,7 +78,9 @@ function DataTable({
               headerColor ? headerColor : "bg-gd-primary"
             }`}
           >
-            {title}
+            <span className={`h5 fw-light ${titleColor ? titleColor : ""}`}>
+              {title}
+            </span>
           </div>
 
           <div className="block-content">

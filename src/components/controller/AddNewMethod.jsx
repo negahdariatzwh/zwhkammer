@@ -57,7 +57,7 @@ function AddNewMethod(props) {
       color="bg-gd-emerald"
       icon="far fa-2x fa-window-close  closeBtn"
       close={() => setaddForm(false)}
-      title="Neue Controller Hinzufügen"
+      title="Neue Method Hinzufügen"
     >
       <form
         id="create-method-form"

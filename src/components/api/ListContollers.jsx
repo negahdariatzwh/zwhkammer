@@ -70,42 +70,44 @@ function ListContollers({ api_id }) {
           headerColor="bg-gd-emerald"
           title="List controllers"
         >
-          {!authError && objects.found
-            ? objects.found.map((item) => (
-                <tr key={item._id}>
-                  <td>
-                    <Activate
+          {!authError && objects.found ? (
+            objects.found.map((item) => (
+              <tr key={item._id}>
+                <td>
+                  <Activate
+                    apiName="kammer"
+                    apiController="ctrl"
+                    id={item._id}
+                    status={item.isActive}
+                  />
+                </td>
+                <td>
+                  <IsActive active={item.generic} />
+                </td>
+                <TdLink
+                  inner={`${item.name}`}
+                  goto={`/controller/${item._id}`}
+                  targetPageId="12"
+                />
+                <td>{item.description}</td>
+                <td>
+                  <span className="">
+                    <MiniDeleteBtn
                       apiName="kammer"
                       apiController="ctrl"
                       id={item._id}
-                      status={item.isActive}
+                      refresh={() => setRefreshList(Math.random())}
                     />
-                  </td>
-                  <td>
-                    <IsActive active={item.generic} />
-                  </td>
-                  <TdLink
-                    inner={`${item.name}`}
-                    goto={`/controller/${item._id}`}
-                    targetPageId="12"
-                  />
-                  <td>{item.description}</td>
-                  <td>
-                    <span className="">
-                      <MiniDeleteBtn
-                        apiName="kammer"
-                        apiController="ctrl"
-                        id={item._id}
-                        refresh={() => setRefreshList(Math.random())}
-                      />
-                    </span>
-                    <span className="">
-                      <MiniEditBtn onClick={() => seteditForm(item._id)} />
-                    </span>
-                  </td>
-                </tr>
-              ))
-            : ""}
+                  </span>
+                  <span className="">
+                    <MiniEditBtn onClick={() => seteditForm(item._id)} />
+                  </span>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr></tr>
+          )}
         </DataTable>
       ) : (
         ""
