@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import AdminFooter from "../components/common/Footer";
-import AdminNavbar from "../components/common/Navbar";
+//import AdminNavbar from "../components/common/Navbar";
 import AdminSidebar from "../components/common/Sidebar";
 function NewLayout({ children }) {
   return (
