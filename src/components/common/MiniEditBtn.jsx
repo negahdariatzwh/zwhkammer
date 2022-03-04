@@ -1,12 +1,15 @@
 import { React } from "react";
 function MiniEditBtn(props) {
   return (
-    <span
-      className="badge center bg-primary pointer"
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary"
+      data-bs-toggle="tooltip"
+      title="Edit"
       onClick={() => props.onClick()}
     >
-      <i className="fas fa-edit"></i>
-    </span>
+      <i class="fa fa-pencil-alt"></i>
+    </button>
   );
 }
 export default MiniEditBtn;

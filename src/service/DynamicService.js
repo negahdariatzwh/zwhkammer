@@ -115,6 +115,20 @@ const DynamicService = {
         }
     },
 
+    statusChanger: async (apiName, apiController, id, columnName, newStatus) => {
+        try {
+            let { apiAddress } = findApiByName(apiName);
+            let apiToCall = apiAddress + apiController + '/update/' + id;
+            
+            const formPayload = new FormData();
+            formPayload.append(columnName, newStatus);
+            let data = await ApiService.post(apiToCall, formPayload).then((response) => response.data);
+            return data
+        } catch (ex) {
+            return false
+        }
+    },
+
     activate: async (apiName, apiController, id) => {
         try {
             let { apiAddress } = findApiByName(apiName);

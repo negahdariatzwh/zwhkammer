@@ -83,9 +83,9 @@ function DataTable({
             </span>
           </div>
 
-          <div className="block-content">
+          <div className="content">
             <div className="table-responsive">
-              <table className="table table-striped table-vcenter table-sm table-hover">
+              <table className="table table-vcenter table-hover">
                 <thead>
                   <TableHeader
                     headers={headers}

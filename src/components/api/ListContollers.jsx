@@ -5,7 +5,7 @@ import TdLink from "../common/TdLink";
 import MiniDeleteBtn from "../common/MiniDeleteBtn";
 import MainContext from "../../context/MainContext";
 import MiniEditBtn from "../common/MiniEditBtn";
-import IsActive from "../common/IsActive";
+import ColStateChanger from "../common/ColStateChanger";
 
 function ListContollers({ api_id }) {
   const { authError, seteditForm, setRefreshList, refreshList } =
@@ -82,7 +82,14 @@ function ListContollers({ api_id }) {
                   />
                 </td>
                 <td>
-                  <IsActive active={item.generic} />
+                  <ColStateChanger
+                    id={item._id}
+                    status={item.generic}
+                    apiName="kammer"
+                    apiController="ctrl"
+                    column="generic"
+                    setRefreshParent={() => setRefreshList(Math.random())}
+                  />
                 </td>
                 <TdLink
                   inner={`${item.name}`}
@@ -90,18 +97,16 @@ function ListContollers({ api_id }) {
                   targetPageId="12"
                 />
                 <td>{item.description}</td>
-                <td>
-                  <span className="">
+                <td className="text-center">
+                  <div class="btn-group">
                     <MiniDeleteBtn
                       apiName="kammer"
                       apiController="ctrl"
                       id={item._id}
                       refresh={() => setRefreshList(Math.random())}
                     />
-                  </span>
-                  <span className="">
                     <MiniEditBtn onClick={() => seteditForm(item._id)} />
-                  </span>
+                  </div>
                 </td>
               </tr>
             ))

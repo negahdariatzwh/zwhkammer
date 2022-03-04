@@ -16,12 +16,15 @@ function MiniDeleteBtn({ apiName, apiController, id, refresh }) {
       });
   };
   return (
-    <span
-      className="badge center bg-danger pointer"
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary"
+      data-bs-toggle="tooltip"
+      title="Delete"
       onClick={() => handleDelete()}
     >
-      <i className="fa fa-trash"></i>
-    </span>
+      <i class="fa fa-times"></i>
+    </button>
   );
 }
 

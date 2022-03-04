@@ -8,22 +8,23 @@ import Textarea from "muicss/lib/react/textarea";
 import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
 import MainContext from "../../context/MainContext";
-function UpdateController(props) {
+import Switch from "../common/Switch";
+function UpdateController() {
   const { editForm, seteditForm, refreshList, setRefreshList } =
     useContext(MainContext);
   const [formState, setFormState] = useState([]);
-
   useEffect(() => {
     if (editForm) {
       getData();
     }
   }, [editForm]);
+
   const getData = () => {
     if (seteditForm) {
       //console.log("set edir form in udpatecont line 17", editForm);
-      DynamicService.getId("kammer", "api_controller", editForm)
+      DynamicService.getId("kammer", "ctrl", editForm)
         .then((response) => {
-          //console.log("it is response for object to edit", response.success);
+          console.log("it is response for object to edit", response.success);
           setFormState(response.success);
         })
         .catch((error) => {
@@ -31,7 +32,6 @@ function UpdateController(props) {
         });
     }
   };
-
   //console.log(formState);
   const handleFormChange = (e) => {
     setFormState({
@@ -48,7 +48,7 @@ function UpdateController(props) {
     formPayload.append("name", formState.name);
     formPayload.append("description", formState.description);
     //console.log(formState);
-    DynamicService.update("kammer", "api_controller", editForm, formPayload)
+    DynamicService.update("kammer", "ctrl", editForm, formPayload)
       .then((response) => {
         seteditForm();
         toast.success("updated");
