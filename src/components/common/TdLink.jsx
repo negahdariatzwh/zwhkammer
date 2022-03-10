@@ -4,8 +4,7 @@ import { getPage } from "../../app/Utils.js";
 import MainContext from "../../context/MainContext";
 function TdLink({ inner, goto, targetPageId }) {
   const history = useHistory();
-  const { currentPage, setcurrentPage_id, setcurrentPage } =
-    useContext(MainContext);
+  const { setcurrentPage_id, setcurrentPage } = useContext(MainContext);
   const handleGo = () => {
     setcurrentPage(getPage(targetPageId));
     setcurrentPage_id(targetPageId);

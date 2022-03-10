@@ -14,6 +14,7 @@ import NewLayout from "../layout/NewLayout";
 import Apis from "../page/Apis";
 import Api from "../page/Api";
 import Controller from "../page/Controller";
+import Permission from "../page/Permission";
 function MainRouter() {
   const { pages } = useContext(Main_Context);
   const components = {
@@ -29,6 +30,7 @@ function MainRouter() {
     Api: Api,
     Apis: Apis,
     Controller: Controller,
+    Permission: Permission,
   };
   return (
     <NewLayout>

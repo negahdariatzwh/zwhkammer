@@ -16,7 +16,7 @@ function ColStateChanger({
   //statusChanger: async (apiName, apiController, id, columnName, newStatus)
   useEffect(() => {
     setRefreshParent();
-  }, [ObjectStatus]);
+  }, []);
 
   const activate = () => {
     Service.statusChanger(apiName, apiController, id, column, 1)
@@ -42,7 +42,7 @@ function ColStateChanger({
 
   return (
     <div className="form-check form-switch" style={{ paddingLeft: "4em" }}>
-      {ObjectStatus == 1 ? (
+      {ObjectStatus === 1 || ObjectStatus === "1" ? (
         <input
           className="form-check-input"
           style={{ height: "1em", width: "2em" }}

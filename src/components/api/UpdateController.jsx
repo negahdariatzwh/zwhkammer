@@ -8,16 +8,15 @@ import Textarea from "muicss/lib/react/textarea";
 import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
 import MainContext from "../../context/MainContext";
-import Switch from "../common/Switch";
+//import Switch from "../common/Switch";
 function UpdateController() {
-  const { editForm, seteditForm, refreshList, setRefreshList } =
-    useContext(MainContext);
+  const { editForm, seteditForm, setRefreshList } = useContext(MainContext);
   const [formState, setFormState] = useState([]);
   useEffect(() => {
     if (editForm) {
       getData();
     }
-  }, [editForm]);
+  }, []);
 
   const getData = () => {
     if (seteditForm) {

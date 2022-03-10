@@ -1,4 +1,4 @@
-import { React, useState, Fragment, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import BaseInfo from "../components/user/BaseInfo";
 import UserService from "../service/UserService";

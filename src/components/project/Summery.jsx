@@ -1,20 +1,13 @@
 import { React, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
-import $ from "jquery";
+//import $ from "jquery";
 import ImageSlider from "../common/ImageSlider";
 import DynamicService from "../../service/DynamicService";
+import ListProjectPermissions from "./ListProjectPermissions";
 function Summery() {
   const params = useParams();
   let project_id = params.id;
   const history = useHistory();
-  $(function ($) {
-    //alert("hi");
-  });
-  const imagelist = [
-    "/assets/media/various/cb-project-promo1.png",
-    "/assets/media/various/cb-project-promo2.png",
-    "/assets/media/various/cb-project-promo3.png",
-  ];
   const [project, setproject] = useState([]);
 
   useEffect(() => {
@@ -28,19 +21,24 @@ function Summery() {
   return (
     <div>
       <div className="block-content block-content-full border-bottom d-flex justify-content-between align-items-center">
+        <img src={logosrc} alt="" style={{ maxHeight: "50px" }} />
         <span
           className="btn btn-primary"
           onClick={() => history.push("/projects")}
         >
-          <i className="fa fa-arrow-left opacity-50 me-1 "></i> Alle Projekten
+          <i className="fa fa-arrow-left opacity-50 me-1 "></i> zum Projekten
         </span>
       </div>
 
       <div className="block-content block-content-full">
         <div className="row py-3">
           <div className="col-sm-6 ">
-            <ImageSlider imagesUrlArray={imagelist} />
-
+            <p>
+              <span className="h5">
+                <span className="h5">{project.show_name} </span>
+              </span>
+            </p>
+            <p> {project.description}</p>
             <table className="table table-striped table-borderless mt-3">
               <tbody>
                 <tr>
@@ -67,25 +65,7 @@ function Summery() {
             </table>
           </div>
           <div className="col-sm-6">
-            <p></p>
-            <p>
-              <span className="h4">
-                Projektsname: <span className="h3">{project.show_name} </span>{" "}
-              </span>
-            </p>
-            <p>
-              <span className="h4">
-                logo:{" "}
-                <span className="h3">
-                  <img src={logosrc} alt="" style={{ maxHeight: "50px" }} />{" "}
-                </span>
-              </span>
-            </p>
-            <p>
-              {" "}
-              <h4 className="mb-2">Beschreibung:</h4>
-              {project.description}
-            </p>
+            <ListProjectPermissions id={project_id} />
           </div>
         </div>
       </div>

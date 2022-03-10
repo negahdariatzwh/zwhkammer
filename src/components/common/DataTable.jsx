@@ -43,6 +43,7 @@ function DataTable({
     Service.list(apiName, apiController, page, order, sortDirection, filter)
       .then((response) => {
         setObjects(response.success);
+        console.log(response.success);
       })
       .catch((er) => {
         seterror(er);
@@ -63,6 +64,7 @@ function DataTable({
     )
       .then((response) => {
         setObjects(response.success);
+        console.log(response.success);
       })
       .catch((er) => {
         seterror(er);
@@ -106,9 +108,7 @@ function DataTable({
 
           <div className="card"></div>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
     </Fragment>
   );
 }

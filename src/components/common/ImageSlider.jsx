@@ -26,7 +26,7 @@ function ImageSlider({ imagesUrlArray }) {
             key={index}
           >
             {index === current && (
-              <img className="sliderImage" src={item} alt="travel Image" />
+              <img className="sliderImage" src={item} alt="travel" />
             )}
           </div>
         ))}

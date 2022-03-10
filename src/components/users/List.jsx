@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import DataTable from "../common/DataTable";
 import Activate from "../common/Activate";
 function List() {

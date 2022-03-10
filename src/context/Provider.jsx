@@ -18,6 +18,7 @@ function Provider({ children }) {
   const [refreshList, setRefreshList] = useState();
   const [refreshTrash, setrefreshTrash] = useState();
   const [paramId, setparamId] = useState();
+  const [token, setToken] = useState();
 
   return (
     <MainContext.Provider
@@ -52,6 +53,8 @@ function Provider({ children }) {
         setRefresh,
         authError,
         setAuthError,
+        token,
+        setToken,
       }}
     >
       {children}

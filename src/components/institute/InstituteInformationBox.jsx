@@ -20,7 +20,7 @@ function InstituteInformationBox() {
 
   useEffect(() => {
     getData();
-  }, [api]);
+  }, [params.id]);
 
   return (
     <Fragment>

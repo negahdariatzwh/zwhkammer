@@ -2,7 +2,8 @@ import React from "react";
 import PageInfo from "../components/common/PageInfo";
 import { useParams } from "react-router";
 import Summery from "../components/project/Summery";
-import ProjectFeatures from "../components/project/ProjectFeatures";
+import Establishments from "../components/project/Establishments";
+
 function Project() {
   const params = useParams();
   const ProjectId = params.id;
@@ -11,7 +12,7 @@ function Project() {
     <div className="block block-rounded overflow-hidden">
       <PageInfo />
       <Summery />
-      <ProjectFeatures />
+      <Establishments id={ProjectId} />
     </div>
   );
 }

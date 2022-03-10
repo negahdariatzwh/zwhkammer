@@ -7,7 +7,7 @@ import MainContext from "../../context/MainContext";
 import MiniRestoreBtn from "../common/MiniRestoreBtn";
 import MiniremoveBtn from "../common/MiniRemoveBtn";
 function TrashMethods({ id }) {
-  const { authError, refreshTrash, showTrash } = useContext(MainContext);
+  const { authError, refreshTrash } = useContext(MainContext);
   const headers = [
     {
       _id: 1,

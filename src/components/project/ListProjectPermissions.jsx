@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import DataTable from "../common/DataTable";
 import Activate from "../common/Activate";
 import TdLink from "../common/TdLink";
-function Establishments(props) {
+function ListProjectPermissions(props) {
   const headers = [
     {
       _id: 1,
@@ -15,16 +15,16 @@ function Establishments(props) {
 
     {
       _id: 2,
-      show: "Institute",
-      name: "estab_name",
+      show: "Name",
+      name: "name",
       sort: true,
       search: true,
       component: "TdLink",
     },
     {
       _id: 3,
-      show: "Permission",
-      name: "proj_per_name",
+      show: "Description",
+      name: "description",
       sort: true,
       search: true,
     },
@@ -35,13 +35,13 @@ function Establishments(props) {
     <DataTable
       headers={headers}
       apiName="kammer"
-      apiController="project"
-      apiMethod="establishments"
+      apiController="project_permission"
+      apiMethod="listpermissions"
       apiId={props.id}
       objects={objects}
       setObjects={setObjects}
       //refresh={refreshList}
-      title="Projekte Institiuten"
+      title="Projekte Berechtigungen"
       headerColor="bg-gd-emerald"
     >
       {objects.found
@@ -49,22 +49,22 @@ function Establishments(props) {
             <tr key={item._id}>
               <td>
                 <Activate
-                  api="kammer.hubgrade-dev.de/Establishment_Project_Permission"
-                  id={item.estab_proj_per_poj_per_id}
+                  api="kammer.hubgrade-dev.de/project_permission"
+                  id={item._id}
                   status={item.isActive}
                 />
               </td>
               <TdLink
-                inner={`${item.estab_name}`}
-                goto={`/institiute/${item.estab_id}`}
+                inner={`${item.name}`}
+                goto={`/permission/${item._id}`}
                 targetPageId="10"
               />
-              <td>{item.proj_per_name}</td>
+              <td>{item.description}</td>
             </tr>
           ))
-        : null}
+        : ""}
     </DataTable>
   );
 }
 
-export default Establishments;
+export default ListProjectPermissions;

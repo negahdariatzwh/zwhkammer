@@ -1,5 +1,6 @@
 import ApiService from "./ApiService";
-import { toast } from "react-toastify"
+import axios from "axios";
+//import { toast } from "react-toastify"
 const APIList = [{ name: "kammer", apiAddress: "https://kammer.hubgrade-dev.de/" }, { name: "zzls", apiAddress: "https://zzls.hubgrade-dev.de/" }];
 
 
@@ -104,6 +105,43 @@ const DynamicService = {
         }
     },
 
+    dynamicPost: async (apiName, apiController, apiMethod, payload) => {
+        try {
+            let { apiAddress } = findApiByName(apiName);
+            let apiToCall = apiAddress + apiController + '/' + apiMethod + '/';
+            let xdata = await axios({
+                url: apiToCall,
+                method: 'post',
+                headers: {
+                    'Content-Type': 'x-www-form-urlencoded;charset=utf-8',
+                },
+                data: payload
+            }).then((response) => response.data);
+            return xdata
+        } catch (ex) {
+            return false
+        }
+    },
+    dynamicPostAuth: async (apiName, apiController, apiMethod, token, payload) => {
+        try {
+            let { apiAddress } = findApiByName(apiName);
+            let apiToCall = apiAddress + apiController + '/' + apiMethod + '/';
+            console.log('dynamicpost:', apiToCall);
+            let xdata = await axios({
+                url: apiToCall,
+                method: 'post',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'x-www-form-urlencoded;charset=utf-8'
+                },
+                data: payload
+            }).then((response) => response.data);
+            return xdata
+        } catch (ex) {
+            return false
+        }
+    },
+
     update: async (apiName, apiController, id, payload) => {
         try {
             let { apiAddress } = findApiByName(apiName);
@@ -119,7 +157,7 @@ const DynamicService = {
         try {
             let { apiAddress } = findApiByName(apiName);
             let apiToCall = apiAddress + apiController + '/update/' + id;
-            
+
             const formPayload = new FormData();
             formPayload.append(columnName, newStatus);
             let data = await ApiService.post(apiToCall, formPayload).then((response) => response.data);

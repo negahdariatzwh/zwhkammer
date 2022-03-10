@@ -143,6 +143,18 @@ export const PAGES_INFO = ([
             parent_id: '',
             name: '',
         }
+    },
+    {
+        _id: 13,
+        route: "/permission/:id",
+        title: "Permission verwalten",
+        icon: '',
+        name: "Permission",
+        parents: [1, 2, 3],
+        sideBar: {
+            parent_id: '',
+            name: '',
+        }
     }
 ])
 export default PAGES_INFO

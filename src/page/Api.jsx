@@ -22,7 +22,7 @@ function Api() {
       .catch((er) => {
         toast.error(er);
       });
-  }, []);
+  }, [params.id]);
 
   return (
     <div>
