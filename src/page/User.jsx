@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import BaseInfo from "../components/user/BaseInfo";
 import UserService from "../service/UserService";
-import Companies from "../components/users/Companies";
+import Companies from "../components/user/Companies";
 import { toast } from "react-toastify";
 import Projects from "../components/user/Projects";
 import PageInfo from "../components/common/PageInfo";
@@ -28,7 +28,7 @@ function User() {
           <BaseInfo userInfo={userInfo} />
         </div>
         <div className="col-md-6">
-          <Companies user_id={userInfo._id} />
+          <Companies user_id={id} />
         </div>
       </div>
       <div className="row">

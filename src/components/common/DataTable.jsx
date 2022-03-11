@@ -63,7 +63,7 @@ function DataTable({
     )
       .then((response) => {
         setObjects(response.success);
-        console.log(response.success);
+        console.log("datatable response", response.success);
       })
       .catch((er) => {
         seterror(er);
@@ -86,7 +86,7 @@ function DataTable({
     )
       .then((response) => {
         setObjects(response.success);
-        console.log(response.success);
+        console.log("datatable response", response.success);
       })
       .catch((er) => {
         seterror(er);

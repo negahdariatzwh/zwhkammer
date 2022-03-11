@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import DataTable from "../common/DataTable";
 import Activate from "../common/Activate";
+import TdLink from "../common/TdLink";
 function List() {
   const headers = [
     {
@@ -31,6 +32,12 @@ function List() {
       sort: true,
       search: true,
     },
+    {
+      _id: 5,
+      name: "",
+      sort: false,
+      search: false,
+    },
   ];
 
   const [objects, setObjects] = useState([]);
@@ -42,23 +49,28 @@ function List() {
       apiController="user"
       objects={objects}
       setObjects={setObjects}
+      title="List All users"
+      titleColor="white"
     >
-      {objects.found
-        ? objects.found.map((item) => (
-            <tr key={item._id}>
-              <td>
-                <Activate
-                  api="zzls.hubgrade-dev.de/user"
-                  id={item._id}
-                  status={item.isActive}
-                />
-              </td>
-              <td>{item.lastName}</td>
-              <td>{item.firstName}</td>
-              <td>{item.email}</td>
-            </tr>
-          ))
-        : ""}
+      {objects.found ? (
+        objects.found.map((item) => (
+          <tr key={item._id}>
+            <td>
+              <Activate
+                api="zzls.hubgrade-dev.de/user"
+                id={item._id}
+                status={item.isActive}
+              />
+            </td>
+            <td>{item.lastName}</td>
+            <td>{item.firstName}</td>
+            <td>{item.email}</td>
+            <TdLink goto={`/user/${item._id}`} inner="goto" targetPageId="5" />
+          </tr>
+        ))
+      ) : (
+        <tr></tr>
+      )}
     </DataTable>
   );
 }

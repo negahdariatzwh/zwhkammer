@@ -8,20 +8,20 @@ function Card({
 }) {
   return (
     <Fragment>
-      <div class="block block-themed block-rounded">
-        <div class={`block-header ${color}`}>
-          <h3 class="block-title">{title}</h3>
-          <div class="block-options">
+      <div className="block block-themed block-rounded">
+        <div className={`block-header ${color}`}>
+          <h3 className="block-title">{title}</h3>
+          <div className="block-options">
             {topBtn ? (
-              <button type="button" class="btn-block-option">
-                <i class={`${topBtn}`}></i>
+              <button type="button" className="btn-block-option">
+                <i className={`${topBtn}`}></i>
               </button>
             ) : (
               ""
             )}
           </div>
         </div>
-        <div class="block-content">{children}</div>
+        <div className="block-content">{children}</div>
       </div>
     </Fragment>
   );
