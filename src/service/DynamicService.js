@@ -10,9 +10,12 @@ function findApiByName(xname) {
     })
 }
 const DynamicService = {
-    list: async (apiName, apiController, page = 1, order_item = ["_id"], sortDirection = 1, filter) => {
+    list: async (apiName, apiController, page = 1, order_item = ["_id"], sortDirection = 1, filter, searchItem, searchValue) => {
         let { apiAddress } = findApiByName(apiName);
         let query = `?page=${page}&orderby[${order_item}]=${sortDirection}`;
+        if (searchItem && searchValue) {
+            query = query + `&search[${searchItem}][like]=${searchValue}`;
+        }
         try {
             let apiToCall = apiAddress + apiController + '/list' + query
             let data = await ApiService.post(apiToCall, filter).then((response) => response.data);
@@ -22,9 +25,12 @@ const DynamicService = {
             return false
         }
     },
-    listId: async (apiName, apiController, apiMethod, Id, page = 1, order_item = ["_id"], sortDirection = 1, filter) => {
+    listId: async (apiName, apiController, apiMethod, Id, page = 1, order_item = ["_id"], sortDirection = 1, filter, searchItem, searchValue) => {
         let { apiAddress } = findApiByName(apiName);
         let query = `?page=${page}&orderby[${order_item}]=${sortDirection}`;
+        if (searchItem && searchValue) {
+            query = query + `&search[${searchItem}][like]=${searchValue}`;
+        }
         try {
             let apiToCall = apiAddress + apiController + '/' + apiMethod + '/' + Id + query
             let data = await ApiService.post(apiToCall, filter).then((response) => response.data);

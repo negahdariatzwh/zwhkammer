@@ -2,7 +2,13 @@ import React from "react";
 import TableSortIcon from "./TableSortIcon";
 import TableSearchIcon from "./TableSearchIcon";
 import TableSearchDate from "./TableSearchDate";
-function TableHeader({ headers, sortHandle, searchHandle }) {
+function TableHeader({
+  headers,
+  sortHandle,
+  searchHandle,
+  searchItemSet,
+  searchValueSet,
+}) {
   return (
     <tr>
       {headers.map((item) =>
@@ -15,7 +21,12 @@ function TableHeader({ headers, sortHandle, searchHandle }) {
               ""
             )}
             {item.search ? (
-              <TableSearchIcon item={item} searchHandle={searchHandle} />
+              <TableSearchIcon
+                item={item.name}
+                searchHandle={searchHandle}
+                sethItemToSearch={searchItemSet}
+                setItemToSearchValue={searchValueSet}
+              />
             ) : (
               ""
             )}

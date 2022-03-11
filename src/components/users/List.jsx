@@ -13,14 +13,14 @@ function List() {
     {
       _id: 2,
       show: "Nachname",
-      name: "name",
+      name: "lastName",
       sort: true,
       search: true,
     },
     {
       _id: 3,
       show: "Vorname",
-      name: "birthdate",
+      name: "firstName",
       sort: true,
       search: true,
     },

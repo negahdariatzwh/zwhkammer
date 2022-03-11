@@ -23,6 +23,8 @@ function DataTable({
   const [sortDirection, setsortDirection] = useState(1);
   const [searchHandle, setsearchHandle] = useState();
   const [error, seterror] = useState();
+  const [searchItem, setsearchItem] = useState();
+  const [searchValue, setsearchValue] = useState();
 
   const sortHandle = (item) => {
     setorder(item.name);
@@ -30,7 +32,16 @@ function DataTable({
   };
   useEffect(() => {
     refreshMyData();
-  }, [page, order, sortDirection, searchHandle, refresh, filter]);
+  }, [
+    page,
+    order,
+    sortDirection,
+    searchHandle,
+    refresh,
+    filter,
+    searchItem,
+    searchValue,
+  ]);
 
   const refreshMyData = () => {
     if (apiId) {
@@ -40,7 +51,16 @@ function DataTable({
     }
   };
   const getData = () => {
-    Service.list(apiName, apiController, page, order, sortDirection, filter)
+    Service.list(
+      apiName,
+      apiController,
+      page,
+      order,
+      sortDirection,
+      filter,
+      searchItem,
+      searchValue
+    )
       .then((response) => {
         setObjects(response.success);
         console.log(response.success);
@@ -60,7 +80,9 @@ function DataTable({
       page,
       order,
       sortDirection,
-      filter
+      filter,
+      searchItem,
+      searchValue
     )
       .then((response) => {
         setObjects(response.success);
@@ -93,6 +115,8 @@ function DataTable({
                     headers={headers}
                     sortHandle={sortHandle}
                     searchHandle={setsearchHandle}
+                    searchItemSet={setsearchItem}
+                    searchValueSet={setsearchValue}
                   />
                 </thead>
                 <tbody>{children}</tbody>

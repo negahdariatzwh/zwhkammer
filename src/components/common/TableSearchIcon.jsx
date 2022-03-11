@@ -1,16 +1,21 @@
 import { React, useState } from "react";
 
-function TableSearchIcon({ item, searchHandle }) {
+function TableSearchIcon({
+  item,
+  searchHandle,
+  sethItemToSearch,
+  setItemToSearchValue,
+}) {
   const [showSearch, setshowSearch] = useState(false);
   const [searchValue, setsearchValue] = useState();
   const handleClick = () => {
     showSearch ? setshowSearch(false) : setshowSearch(true);
   };
-
-  const handleSearchValue = (e) => {
-    setshowSearch(e.value);
-    setsearchValue(e.value);
-    console.log(searchValue);
+  const updateSearchValue = (value) => {
+    setsearchValue(value);
+    console.log("valllue", searchValue);
+    sethItemToSearch(item);
+    setItemToSearchValue(searchValue);
   };
 
   return (
@@ -20,7 +25,8 @@ function TableSearchIcon({ item, searchHandle }) {
           className="form"
           type="text"
           focuse="on"
-          onChange={() => handleSearchValue()}
+          value={searchValue}
+          onChange={(e) => updateSearchValue(e.target.value)}
         />
       ) : (
         <i className="fas fa-search pointer blue leftspace"></i>
