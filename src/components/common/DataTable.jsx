@@ -17,6 +17,7 @@ function DataTable({
   headerColor,
   title,
   titleColor,
+  headerAddBtn,
 }) {
   const [page, setPage] = useState(1);
   const [order, setorder] = useState();

@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import DataTable from "../common/DataTable";
 import Activate from "../common/Activate";
+import MiniAddBtn from "../common/MiniAddBtn";
 function Companies({ user_id }) {
   const headers = [
     {
@@ -17,7 +18,7 @@ function Companies({ user_id }) {
       name: "establishment",
       sort: false,
       search: false,
-      component: "Activate",
+      component: "",
     },
     {
       _id: 3,
@@ -25,7 +26,15 @@ function Companies({ user_id }) {
       name: "position",
       sort: false,
       search: false,
-      component: "Activate",
+      component: "",
+    },
+    {
+      _id: 4,
+      show: "Add new Institute",
+      name: "",
+      sort: false,
+      search: false,
+      component: "",
     },
   ];
   const [objects1, setObjects1] = useState([]);
@@ -54,6 +63,9 @@ function Companies({ user_id }) {
               </td>
               <td>{establishment.establishment.name}</td>
               <td>{establishment.position}</td>
+              <td>
+                <MiniAddBtn />
+              </td>
             </tr>
           ))
         : null}
