@@ -41,9 +41,10 @@ function ListInsTypes() {
             <tr key={item._id}>
               <td>
                 <Activate
-                  api="kammer.hubgrade-dev.de/estabtype"
                   id={item._id}
                   status={item.isActive}
+                  apiName="kammer"
+                  apiController="estabtype"
                 />
               </td>
               <td>{item.name}</td>

@@ -3,6 +3,7 @@ import Service from "../../service/DynamicService";
 import { toast } from "react-toastify";
 import TableHeader from "./TableHeader";
 import Pagination from "../common/Pagination";
+import Card from "./Card";
 function DataTable({
   apiName,
   apiController,
@@ -16,8 +17,8 @@ function DataTable({
   filter,
   headerColor,
   title,
-  titleColor,
-  headerAddBtn,
+  headerBtn,
+  headerBtnClick,
 }) {
   const [page, setPage] = useState(1);
   const [order, setorder] = useState();
@@ -95,46 +96,37 @@ function DataTable({
       });
   };
   return (
-    <Fragment>
+    <Card
+      title={title}
+      color={headerColor}
+      topBtn={headerBtn}
+      topBtnClick={headerBtnClick}
+    >
       {!error ? (
-        <div className="block block-rounded">
-          <div
-            className={`block-header ${
-              headerColor ? headerColor : "bg-gd-primary"
-            }`}
-          >
-            <span className={`h5 fw-light ${titleColor ? titleColor : ""}`}>
-              {title}
-            </span>
+        <div className="content">
+          <div className="table-responsive">
+            <table className="table table-vcenter table-hover">
+              <thead>
+                <TableHeader
+                  headers={headers}
+                  sortHandle={sortHandle}
+                  searchHandle={setsearchHandle}
+                  searchItemSet={setsearchItem}
+                  searchValueSet={setsearchValue}
+                />
+              </thead>
+              <tbody>{children}</tbody>
+              <tfoot></tfoot>
+            </table>
+            <Pagination
+              setPage={setPage}
+              currentPage={page}
+              count={!objects.count ? 0 : objects.count}
+            />
           </div>
-
-          <div className="content">
-            <div className="table-responsive">
-              <table className="table table-vcenter table-hover">
-                <thead>
-                  <TableHeader
-                    headers={headers}
-                    sortHandle={sortHandle}
-                    searchHandle={setsearchHandle}
-                    searchItemSet={setsearchItem}
-                    searchValueSet={setsearchValue}
-                  />
-                </thead>
-                <tbody>{children}</tbody>
-                <tfoot></tfoot>
-              </table>
-              <Pagination
-                setPage={setPage}
-                currentPage={page}
-                count={!objects.count ? 0 : objects.count}
-              />
-            </div>
-          </div>
-
-          <div className="card"></div>
         </div>
       ) : null}
-    </Fragment>
+    </Card>
   );
 }
 

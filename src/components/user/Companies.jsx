@@ -1,8 +1,8 @@
 import { React, useState } from "react";
 import DataTable from "../common/DataTable";
 import Activate from "../common/Activate";
-import MiniAddBtn from "../common/MiniAddBtn";
-function Companies({ user_id }) {
+import MiniDeleteBtn from "../common/MiniDeleteBtn";
+function Companies({ user_id, handleBtnAddNewCompany }) {
   const headers = [
     {
       _id: 1,
@@ -30,7 +30,7 @@ function Companies({ user_id }) {
     },
     {
       _id: 4,
-      show: "Add new Institute",
+      show: "löschen",
       name: "",
       sort: false,
       search: false,
@@ -38,6 +38,7 @@ function Companies({ user_id }) {
     },
   ];
   const [objects1, setObjects1] = useState([]);
+  const [refreshlish, setRefreshList] = useState();
   console.log("sadfsdsdf", objects1);
   return (
     <DataTable
@@ -49,14 +50,18 @@ function Companies({ user_id }) {
       objects={objects1}
       setObjects={setObjects1}
       headerColor="bg-gd-emerald"
-      title="List Establishments"
+      title="List Institiutes"
+      headerBtn="far fa-2x fa-plus-square"
+      headerBtnClick={handleBtnAddNewCompany}
+      refresh={refreshlish}
     >
       {objects1.found
         ? objects1.found.map((establishment) => (
             <tr key={Math.random()}>
               <td>
                 <Activate
-                  api="zzls.hubgrade-dev.de/establishment_user"
+                  apiName="kammer"
+                  apiController="establishment_user"
                   id={establishment._id}
                   status={establishment.isActive}
                 />
@@ -64,7 +69,12 @@ function Companies({ user_id }) {
               <td>{establishment.establishment.name}</td>
               <td>{establishment.position}</td>
               <td>
-                <MiniAddBtn />
+                <MiniDeleteBtn
+                  apiName="kammer"
+                  apiController="establishment_user"
+                  id={establishment._id}
+                  refresh={setRefreshList}
+                />
               </td>
             </tr>
           ))

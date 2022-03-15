@@ -4,9 +4,6 @@ import List from "../components/users/List";
 import PageInfo from "../components/common/PageInfo";
 import AddTopPage from "../components/common/AddTopPage";
 function Users() {
-  //, setPageName] = useContext(MainContext);
-  //const history = useHistory();
-
   return (
     <div>
       <PageInfo />

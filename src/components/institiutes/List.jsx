@@ -25,14 +25,14 @@ function List() {
       _id: 2,
       show: "type",
       name: "type_id",
-      sort: true,
-      search: true,
+      sort: false,
+      search: false,
     },
     {
       _id: 4,
       show: "land",
       name: "land",
-      sort: true,
+      sort: false,
       search: false,
     },
     {
@@ -52,7 +52,7 @@ function List() {
     },
   ];
   const [objects, setObjects] = useState([]);
-
+  console.log("list inst", objects);
   return (
     <DataTable
       headers={headers}
@@ -61,35 +61,38 @@ function List() {
       objects={objects}
       setObjects={setObjects}
     >
-      {objects.found
-        ? objects.found.map((item) => (
-            <tr key={item._id}>
-              <td>
-                <Activate
-                  api="kammer.hubgrade-dev.de/establishment"
-                  id={item._id}
-                  status={item.isActive}
-                />
-              </td>
-              <TdLink
-                inner={`${item.name}`}
-                goto={`/institute/${item._id}`}
-                targetPageId="9"
+      {objects.found ? (
+        objects.found.map((item) => (
+          <tr key={item._id}>
+            <td>
+              <Activate
+                id={item._id}
+                apiName="kammer"
+                apiController="establishment"
+                status={item.isActive}
               />
-              <td>{item.type.name}</td>
-              <td>{item.land}</td>
-              <td>
-                {item.address} <br />
-                {item.plz} {item.city}
-              </td>
-              <td>
-                {item.email} <br />
-                tel: {item.tel} <br />
-                fax: {item.fax}
-              </td>
-            </tr>
-          ))
-        : ""}
+            </td>
+            <TdLink
+              inner={`${item.name}`}
+              goto={`/institute/${item._id}`}
+              targetPageId="9"
+            />
+            <td>{item.type.name}</td>
+            <td>{item.land}</td>
+            <td>
+              {item.address} <br />
+              {item.plz} {item.city}
+            </td>
+            <td>
+              {item.email} <br />
+              tel: {item.tel} <br />
+              fax: {item.fax}
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr></tr>
+      )}
     </DataTable>
   );
 }

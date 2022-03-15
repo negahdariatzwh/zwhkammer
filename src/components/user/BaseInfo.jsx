@@ -3,9 +3,13 @@ import BirthDate from "../common/BirthDate";
 import TdStatus from "../common/TdStatus";
 import Gender from "../common/Gender";
 import Card from "../common/Card";
-function BaseInfo({ userInfo }) {
+function BaseInfo({ userInfo, handleBtnEditUser }) {
   return (
-    <Card title="user Information">
+    <Card
+      title="user Information"
+      topBtn="far fa-2x fa-edit"
+      topBtnClick={handleBtnEditUser}
+    >
       <table className="table col-md-12 ">
         <tr>
           <td>Aktive:</td>

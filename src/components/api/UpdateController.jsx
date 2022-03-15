@@ -47,7 +47,7 @@ function UpdateController() {
     formPayload.append("name", formState.name);
     formPayload.append("description", formState.description);
     //console.log(formState);
-    DynamicService.update("kammer", "ctrl", editForm, formPayload)
+    DynamicService.update("zzls", "user")
       .then((response) => {
         seteditForm();
         toast.success("updated");

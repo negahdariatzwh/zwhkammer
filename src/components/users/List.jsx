@@ -57,7 +57,8 @@ function List() {
           <tr key={item._id}>
             <td>
               <Activate
-                api="zzls.hubgrade-dev.de/user"
+                apiName="zzls"
+                apiController="user"
                 id={item._id}
                 status={item.isActive}
               />

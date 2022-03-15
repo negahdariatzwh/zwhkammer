@@ -44,6 +44,24 @@ const DynamicService = {
             return false
         }
     },
+    listIdAll: async (apiName, apiController, apiMethod, Id, order_item = ["_id"], sortDirection = 0, searchItem, searchValue) => {
+        let { apiAddress } = findApiByName(apiName);
+        let query = `?orderby[${order_item}]`;
+        if (sortDirection !== 0) {
+
+            query = `?orderby[${order_item}]=${sortDirection}`;
+        }
+        if (searchItem && searchValue) {
+            query = query + `&search[${searchItem}][like]=${searchValue}`;
+        }
+        try {
+            let apiToCall = apiAddress + apiController + '/' + apiMethod + '/' + Id + query
+            let data = await ApiService.get(apiToCall).then((response) => response.data);
+            return data;
+        } catch (ex) {
+            return false
+        }
+    },
     trash: async (apiName, apiController, page = 1, order_item = ["_id"], sortDirection = 1) => {
         let { apiAddress } = findApiByName(apiName);
         let query = `?page=${page}&orderby[${order_item}]=${sortDirection}`;
@@ -128,10 +146,50 @@ const DynamicService = {
             return false
         }
     },
-    dynamicPostAuth: async (apiName, apiController, apiMethod, token, payload) => {
+    dynamicPostAuth: async (apiName, apiController, apiMethod, payload, token) => {
         try {
             let { apiAddress } = findApiByName(apiName);
             let apiToCall = apiAddress + apiController + '/' + apiMethod + '/';
+            let xdata = await axios({
+                url: apiToCall,
+                method: 'post',
+                mode: 'no-cors',
+                withCredentials: true,
+                credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                data: payload
+            }).then((response) => response.data);
+            return xdata
+        } catch (ex) {
+            return false
+        }
+    },
+    post: async (apiName, apiController, apiMethod, token, payload) => {
+        try {
+            let { apiAddress } = findApiByName(apiName);
+            let apiToCall = apiAddress + apiController + '/' + apiMethod + '/';
+            console.log('dynamicpost:', apiToCall);
+            let xdata = await axios({
+                url: apiToCall,
+                method: 'post',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'x-www-form-urlencoded;charset=utf-8'
+                },
+                data: payload
+            }).then((response) => response.data);
+            return xdata
+        } catch (ex) {
+            return false
+        }
+    },
+    postId: async (apiName, apiController, apiMethod, Id, payload, token) => {
+        try {
+            console.log('log Payload', payload);
+            let { apiAddress } = findApiByName(apiName);
+            let apiToCall = apiAddress + apiController + '/' + apiMethod + '/' + Id;
             console.log('dynamicpost:', apiToCall);
             let xdata = await axios({
                 url: apiToCall,
@@ -177,8 +235,9 @@ const DynamicService = {
         try {
             let { apiAddress } = findApiByName(apiName);
             let apiToCall = apiAddress + apiController + '/activate/' + id;
-            await ApiService.post(apiToCall);
-            return true
+            let data = await ApiService.get(apiToCall).then((response) => response.data);
+            console.log('data activate in Dynamic service line 239', data);
+            return data
         } catch (ex) {
             return false
         }
@@ -187,8 +246,8 @@ const DynamicService = {
         try {
             let { apiAddress } = findApiByName(apiName);
             let apiToCall = apiAddress + apiController + '/deactivate/' + id;
-            await ApiService.post(apiToCall);
-            return true
+            let data = await ApiService.get(apiToCall).then((response) => response.data);
+            return data
         } catch (ex) {
             return false
         }
