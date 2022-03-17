@@ -1,38 +1,38 @@
 import { React, useState, Fragment, useEffect } from "react";
 import DynamicService from "../../service/DynamicService";
 import { toast } from "react-toastify";
-function SelectInstitute({ setSelectedKammerId }) {
-  const [listTypes, setlistTypes] = useState([]);
-  const [listKammer, setlistKammer] = useState([]);
-  const [typeId, setTypeId] = useState();
-  const [Kammer_id, setKammerId] = useState();
+function SelectProjectPermission({ setSelectedPermissionId }) {
+  const [listProjecs, setlistProjects] = useState([]);
+  const [listPermissions, setlistPermissions] = useState([]);
+  const [projectId, setprojectId] = useState();
+  const [Permission_id, setPermissionId] = useState();
 
-  const loadKammerTyps = () => {
-    DynamicService.list("kammer", "Estabtype")
+  const loadProjects = () => {
+    DynamicService.list("kammer", "project")
       .then((response) => {
-        setlistTypes(response.success);
+        setlistProjects(response.success);
       })
       .catch((er) => {
         toast.error(er);
       });
   };
 
-  const handleChangeKammerType = (e) => {
-    setTypeId(e.target.value);
+  const handleChangeProjects = (e) => {
+    setprojectId(e.target.value);
   };
 
   const handleChangeKammer = (e) => {
-    setKammerId(e.target.value);
-    console.log("selected Kammet_id", Kammer_id);
-    setSelectedKammerId(e.target.value);
+    setPermissionId(e.target.value);
+    console.log("selected Permission_id", Permission_id);
+    setSelectedPermissionId(e.target.value);
   };
 
-  const getKammer = (type_id, searchOption, searchValue) => {
+  const getPermissions = (projectId, searchOption, searchValue) => {
     DynamicService.listIdAll(
       "kammer",
-      "estabtype",
-      "establishments",
-      type_id,
+      "project",
+      "permissions",
+      projectId,
       "",
       "",
       searchOption,
@@ -41,8 +41,8 @@ function SelectInstitute({ setSelectedKammerId }) {
       .then((response) => {
         //console.log("list found kammer", response.success.found);
         let foundData = response.success.found;
-        console.log("found kammer ", foundData);
-        setlistKammer(foundData);
+        console.log("found Permissions ", foundData);
+        setlistPermissions(foundData);
       })
       .catch((err) => {
         toast.error(err);
@@ -50,27 +50,27 @@ function SelectInstitute({ setSelectedKammerId }) {
   };
 
   useEffect(() => {
-    loadKammerTyps();
-    getKammer(typeId);
-  }, [typeId]);
+    loadProjects();
+    getPermissions(projectId);
+  }, [projectId]);
 
   return (
     <Fragment>
       <div className="row">
         <div className="col-md-6">
           <select
-            label="Kammer Type"
-            name="KammerType"
+            label="Project"
+            name="project"
             className="form-select"
-            onChange={(e) => handleChangeKammerType(e)}
+            onChange={(e) => handleChangeProjects(e)}
           >
             <option key={"not selected"} value={false}>
               bitte whälen{" "}
             </option>
-            {listTypes.found
-              ? listTypes.found.map((kammeType) => (
-                  <option key={kammeType._id} value={kammeType._id}>
-                    {kammeType.name}
+            {listProjecs.found
+              ? listProjecs.found.map((project) => (
+                  <option key={project._id} value={project._id}>
+                    {project.name}
                   </option>
                 ))
               : ""}
@@ -82,15 +82,16 @@ function SelectInstitute({ setSelectedKammerId }) {
               label="Kammer"
               name="Kammer"
               className="form-select"
+              required
               onChange={(e) => handleChangeKammer(e)}
             >
               <option key={"not selected"} value={false}>
                 bitte whälen{" "}
               </option>
-              {listKammer
-                ? listKammer.map((kammer) => (
-                    <option key={kammer._id} value={kammer._id}>
-                      {kammer.name}
+              {listPermissions
+                ? listPermissions.map((permission) => (
+                    <option key={permission._id} value={permission._id}>
+                      {permission.name}
                     </option>
                   ))
                 : ""}
@@ -102,4 +103,4 @@ function SelectInstitute({ setSelectedKammerId }) {
   );
 }
 
-export default SelectInstitute;
+export default SelectProjectPermission;

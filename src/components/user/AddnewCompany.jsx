@@ -25,6 +25,7 @@ function AddnewCompany({ user_id, handleCloseForm }) {
     formPayload.append("establishment_id", selectedKammerId);
     formPayload.append("user_id", user_id);
     formPayload.append("position", formState.position);
+    formPayload.append("isActive", 1);
     console.log(formState);
     DynamicService.dynamicPost(
       "kammer",

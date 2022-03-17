@@ -1,21 +1,20 @@
-import { React, useContext } from "react";
+import { React } from "react";
 import { toast } from "react-toastify";
 import DynamicService from "../../service/DynamicService";
-import MainContext from "../../context/MainContext";
-function MiniRestoreBtn({
+
+function MiniRemoveBtn({
   apiName,
   apiController,
   id,
   setrefresh,
   setEditForm,
 }) {
-  const { setRefresh } = useContext(MainContext);
   const handleRemove = () => {
     DynamicService.remove(apiName, apiController, id)
       .then((response) => {
         if (response.success) {
           toast.success("erfolgreich entfernt");
-          setRefresh(Math.random());
+          setrefresh(Math.random());
           setEditForm(null);
         }
       })
@@ -33,4 +32,4 @@ function MiniRestoreBtn({
   );
 }
 
-export default MiniRestoreBtn;
+export default MiniRemoveBtn;
